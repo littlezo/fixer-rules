@@ -1,0 +1,54 @@
+{
+    "name": "littler/fixer-rules",
+    "description": "PHP 编码标准修正",
+    "version": "1.0.0",
+    "pretty_version": "1.0.0",
+    "license": "MPL-2.0",
+    "keywords": [
+        "php",
+        "php-cs-fixer",
+        "cs-fixer",
+        "fixer-rules"
+    ],
+    "support": {
+        "source": "https://github.com/littler/fixer-rules"
+    },
+    "autoload": {
+        "psr-4": {
+            "Littler\\FixerRules\\": "src/"
+        }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "copy": "Littler\\FixerRules\\Hook::copy",
+        "fixer": [
+            "rm -rf runtime/container",
+            "Littler\\FixerRules\\Hook::copy",
+            "php-cs-fixer fix ./"
+        ],
+        "command": [
+            "rm -rf runtime/container",
+            "php-cs-fixer fix ./",
+            "Littler\\FixerRules\\Hook::copy"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0.0"
+        },
+        "hooks": {
+            "command": "composer copy",
+            "pre-commit": [
+                "echo committing as $(git config user.name)",
+                "composer copy",
+                "composer fixer"
+            ]
+        }
+    }
+
+}

@@ -1,8 +1,6 @@
 {
     "name": "littler/fixer-rules",
     "description": "PHP 编码标准修正",
-    "version": "1.0.0",
-    "pretty_version": "1.0.0",
     "license": "MPL-2.0",
     "keywords": [
         "php",
@@ -39,7 +37,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "1.0.0"
+            "dev-main": "1.0-dev"
         },
         "hooks": {
             "command": "composer copy",

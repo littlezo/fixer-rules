@@ -2,6 +2,7 @@
     "name": "littler/fixer-rules",
     "description": "PHP 编码标准修正",
     "license": "MPL-2.0",
+    "type":"composer-plugin",
     "keywords": [
         "php",
         "php-cs-fixer",
@@ -17,36 +18,60 @@
         }
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.0"
+        "composer/composer": "^2.4",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^1.9"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "Littler/fixer-rules": true
+        }
     },
     "scripts": {
         "copy": "Littler\\FixerRules\\Hook::copy",
+        "publish": "Littler\\FixerRules\\Hook::publishConfig",
         "fixer": [
             "rm -rf runtime/container",
             "Littler\\FixerRules\\Hook::copy",
             "php-cs-fixer fix ./"
         ],
-        "command": [
-            "rm -rf runtime/container",
-            "php-cs-fixer fix ./",
-            "Littler\\FixerRules\\Hook::copy"
-        ]
+        "post-update-cmd": [
+            "Littler\\FixerRules\\Hook::copy",
+            "Littler\\FixerRules\\Hook::publishConfig"
+        ],
+        "post-install-cmd": [
+            "Littler\\FixerRules\\Hook::copy",
+            "Littler\\FixerRules\\Hook::publishConfig"
+        ],
+        "command": ["rm -rf runtime/container", "Littler\\FixerRules\\Hook::copy", "Littler\\FixerRules\\Hook::publishConfig", "php-cs-fixer fix $1", "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon"]
     },
     "extra": {
         "branch-alias": {
             "dev-main": "1.0-dev"
         },
+        "post-package-install": [
+            "composer copy",
+            "composer publish"
+        ],
+        "post-package-update": [
+            "composer copy",
+            "composer publish"
+        ],
+        "post-autoload-dump": [
+            "composer copy",
+            "composer publish"
+        ],
         "hooks": {
             "command": "composer copy",
             "pre-commit": [
                 "echo committing as $(git config user.name)",
-                "composer copy",
                 "composer fixer"
             ]
-        }
+        },
+        "class":"\\Littler\\FixerRules\\Hook"
+    },
+    "require": {
+        "composer-plugin-api": "^2.3"
     }
-
 }

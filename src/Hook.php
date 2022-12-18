@@ -16,15 +16,82 @@ declare(strict_types=1);
 
 namespace Littler\FixerRules;
 
-class Hook
+use Composer\Composer;
+use Composer\Config\JsonConfigSource;
+use Composer\IO\ConsoleIO;
+use Composer\IO\IOInterface;
+use Composer\Json\JsonFile;
+use Composer\Plugin\PluginInterface;
+use Symfony\Component\Console\Helper\HelperSet;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
+class Hook implements PluginInterface
 {
+    private Composer $composer;
+
+    private IOInterface $io;
+
+    public function activate(Composer $composer, IOInterface $io): void
+    {
+        $this->composer = $composer;
+        $this->io = $io;
+        self::copy();
+        self::publishConfig();
+    }
+
+    public function deactivate(Composer $composer, IOInterface $io): void
+    {
+        $this->composer = $composer;
+        $this->io = $io;
+        echo 'deactivate';
+    }
+
+    public function uninstall(Composer $composer, IOInterface $io): void
+    {
+        $this->composer = $composer;
+        $this->io = $io;
+        echo 'uninstall';
+    }
+
     public static function copy(): void
     {
-        $from = dirname(__DIR__, 1) . '/publish/php-cs-fixer.php';
+        $io = new ConsoleIO(new ArgvInput, new ConsoleOutput, new HelperSet);
+        $from = dirname(__DIR__, 1) . '/.php-cs-fixer.php';
         $to = getcwd() . '/.php-cs-fixer.php';
-        if (! copy($from, $to)) {
-            echo "copy {$to} failed..." . PHP_EOL;
+        if ($from == $to) {
+            return;
         }
-        echo "copy {$to} successult..." . PHP_EOL;
+        if (! copy($from, $to)) {
+            $io->write("<error>copy {$to} failed....</error>");
+        } else {
+            $io->write("<info>copy {$to} successult....</info>");
+        }
+        $phpstan_from = dirname(__DIR__, 1) . '/phpstan.neon';
+        $phpstan_to = getcwd() . '/phpstan.neon';
+        if (file_exists($phpstan_to)) {
+            return;
+        }
+        if (! copy($phpstan_from, $phpstan_to)) {
+            $io->write("<error>copy {$phpstan_to} failed....</error>");
+        } else {
+            $io->write("<info>copy {$phpstan_to} successult....</info>");
+        }
+    }
+
+    public static function publishConfig(): void
+    {
+        $io = new ConsoleIO(new ArgvInput, new ConsoleOutput, new HelperSet);
+
+        $config = getcwd() . '/composer.json';
+        $config = new JsonConfigSource(new JsonFile($config));
+        $config->addProperty('scripts.command', [
+            'rm -rf runtime/container',
+            'Littler\\FixerRules\\Hook::copy',
+            'Littler\\FixerRules\\Hook::publishConfig',
+            'php-cs-fixer fix $1',
+            'phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon',
+        ]);
+        $io->write('<info>Publish Config successult...</info>');
     }
 }

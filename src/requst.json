@@ -1,0 +1,10 @@
+{
+  "uri":"memberBasic@login",
+  "version":1,
+  "params":{
+    "id":1
+  },
+  "data":{
+    "select":"id,username,nickname,mobile,meta"
+  }
+}

@@ -18,6 +18,7 @@ namespace Littler\FixerRules;
 
 use Composer\Composer;
 use Composer\Config\JsonConfigSource;
+use Composer\Factory;
 use Composer\IO\ConsoleIO;
 use Composer\IO\IOInterface;
 use Composer\Json\JsonFile;
@@ -82,10 +83,8 @@ class Hook implements PluginInterface
     public static function publishConfig(): void
     {
         $io = new ConsoleIO(new ArgvInput, new ConsoleOutput, new HelperSet);
-
-        $config = getcwd() . '/composer.json';
-        $config = new JsonConfigSource(new JsonFile($config));
-        $config->addProperty('scripts.command', [
+        $config = new JsonConfigSource(new JsonFile(Factory::getComposerFile()));
+        $config->addProperty('scripts.post-autoload-dump', [
             'rm -rf runtime/container',
             'Littler\\FixerRules\\Hook::copy',
             'Littler\\FixerRules\\Hook::publishConfig',

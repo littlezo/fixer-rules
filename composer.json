@@ -44,7 +44,8 @@
             "Littler\\FixerRules\\Hook::copy",
             "Littler\\FixerRules\\Hook::publishConfig"
         ],
-        "command": ["rm -rf runtime/container", "Littler\\FixerRules\\Hook::copy", "Littler\\FixerRules\\Hook::publishConfig", "php-cs-fixer fix $1", "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon"]
+        "command": ["rm -rf runtime/container", "Littler\\FixerRules\\Hook::copy", "Littler\\FixerRules\\Hook::publishConfig", "php-cs-fixer fix $1", "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon"],
+        "post-autoload-dump": ["rm -rf runtime/container", "Littler\\FixerRules\\Hook::copy", "Littler\\FixerRules\\Hook::publishConfig", "php-cs-fixer fix $1", "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon"]
     },
     "extra": {
         "branch-alias": {

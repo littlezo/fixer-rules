@@ -336,7 +336,6 @@ return $config
             ->exclude('runtime')
             ->exclude('vendor')
             ->exclude('storage')
-            ->exclude('hyperf')
             ->in(__DIR__)
     )
     ->setRiskyAllowed(true)

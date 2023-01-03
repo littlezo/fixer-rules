@@ -1,0 +1,100 @@
+{
+    "name": "littler/fixer-rules",
+    "description": "PHP 编码标准修正",
+    "type": "library",
+    "license": "MPL-2.0",
+    "keywords": [
+        "php",
+        "swoole",
+        "hyperf",
+        "littler"
+    ],
+    "homepage": "https://github.com/littlezo/littler",
+    "support": {
+        "docs": "https://github.com/littlezo/littler/wiki",
+        "issues": "https://github.com/littlezo/littler/issues",
+        "pull-request": "https://github.com/littlezo/littler/pulls",
+        "source": "https://github.com/littlezo/littler"
+    },
+    "authors": [
+        {
+            "name": "littlezov",
+            "email": "littlezov@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Littler\\FixerRules\\": "src/"
+        }
+    },
+    "require-dev": {
+        "composer/composer": "^2.4",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^1.9"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "Littler/fixer-rules": true
+        }
+    },
+    "scripts": {
+        "copy": "Littler\\FixerRules\\Hook::copy",
+        "publish": "Littler\\FixerRules\\Hook::publishConfig",
+        "fixer": [
+            "rm -rf runtime/container",
+            "Littler\\FixerRules\\Hook::copy",
+            "php-cs-fixer fix ./"
+        ],
+        "post-update-cmd": [
+            "Littler\\FixerRules\\Hook::copy",
+            "Littler\\FixerRules\\Hook::publishConfig"
+        ],
+        "post-install-cmd": [
+            "Littler\\FixerRules\\Hook::copy",
+            "Littler\\FixerRules\\Hook::publishConfig"
+        ],
+        "command": ["rm -rf runtime/container", "Littler\\FixerRules\\Hook::copy", "Littler\\FixerRules\\Hook::publishConfig", "php-cs-fixer fix $1", "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon"],
+        "post-autoload-dump": ["rm -rf runtime/container", "Littler\\FixerRules\\Hook::copy", "Littler\\FixerRules\\Hook::publishConfig", "php-cs-fixer fix $1", "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon"]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0-dev"
+        },
+        "post-package-install": [
+            "composer copy",
+            "composer publish"
+        ],
+        "post-package-update": [
+            "composer copy",
+            "composer publish"
+        ],
+        "post-autoload-dump": [
+            "composer copy",
+            "composer publish"
+        ],
+        "hooks": {
+            "command": "composer copy",
+            "pre-commit": [
+                "echo committing as $(git config user.name)",
+                "composer fixer"
+            ]
+        },
+        "class":"\\Littler\\FixerRules\\Hook"
+    },
+    "require": {
+        "composer-plugin-api": "^2.3"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": {
+        "littler": {
+            "type": "path",
+            "url": "../../../littler/src/*"
+        },
+        "hyperf": {
+            "type": "path",
+            "url": "../../../hyperf/src/*"
+        }
+    }
+}

@@ -335,6 +335,7 @@ return $config
             ->exclude('public')
             ->exclude('runtime')
             ->exclude('vendor')
+            ->exclude('hyperf')
             ->exclude('storage')
             ->in(__DIR__)
     )

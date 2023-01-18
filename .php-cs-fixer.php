@@ -340,5 +340,5 @@ return $config
             ->in(__DIR__)
     )
     ->setRiskyAllowed(true)
-    ->setUsingCache(true)
+    ->setUsingCache(false)
     ->setLineEnding("\n");

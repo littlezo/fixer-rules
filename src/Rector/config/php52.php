@@ -14,26 +14,17 @@ declare(strict_types=1);
  *
  */
 
-use Littler\FixerRules\Rector\LevelSetList;
-use Littler\FixerRules\Rector\SetList;
 use Rector\Config\RectorConfig;
-use Rector\Core\ValueObject\PhpVersion;
+use Rector\Php52\Rector\Property\VarToPublicPropertyRector;
+use Rector\Php52\Rector\Switch_\ContinueToBreakInSwitchRector;
+use Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector;
+use Rector\Removing\ValueObject\RemoveFuncCallArg;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->paths([
-        __DIR__ . '/src',
+    $rectorConfig->rule(VarToPublicPropertyRector::class);
+    $rectorConfig->rule(ContinueToBreakInSwitchRector::class);
+    $rectorConfig->ruleWithConfiguration(RemoveFuncCallArgRector::class, [
+        // see https://www.php.net/manual/en/function.ldap-first-attribute.php
+        new RemoveFuncCallArg('ldap_first_attribute', 2),
     ]);
-
-    // register a single rule
-    // $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
-    // $rectorConfig->phpVersion(PhpVersion::PHP_82);
-    // define sets of rules
-    $rectorConfig->importNames();
-    // $rectorConfig->rule(NoUnusedImportsFixer::class);
-    // $rectorConfig->sets([
-    //     LevelSetList::UP_TO_PHP_81,
-    // ]);
-    $rectorConfig->sets([SetList::PHP_82, LevelSetList::UP_TO_PHP_81]);
-    // parameter must be defined after import, to override imported param version
-    $rectorConfig->phpVersion(PhpVersion::PHP_82);
 };

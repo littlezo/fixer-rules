@@ -20,20 +20,7 @@ use Rector\Config\RectorConfig;
 use Rector\Core\ValueObject\PhpVersion;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->paths([
-        __DIR__ . '/src',
-    ]);
-
-    // register a single rule
-    // $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
-    // $rectorConfig->phpVersion(PhpVersion::PHP_82);
-    // define sets of rules
-    $rectorConfig->importNames();
-    // $rectorConfig->rule(NoUnusedImportsFixer::class);
-    // $rectorConfig->sets([
-    //     LevelSetList::UP_TO_PHP_81,
-    // ]);
-    $rectorConfig->sets([SetList::PHP_82, LevelSetList::UP_TO_PHP_81]);
+    $rectorConfig->sets([SetList::PHP_70, LevelSetList::UP_TO_PHP_56]);
     // parameter must be defined after import, to override imported param version
-    $rectorConfig->phpVersion(PhpVersion::PHP_82);
+    $rectorConfig->phpVersion(PhpVersion::PHP_70);
 };

@@ -30,7 +30,8 @@
     "require-dev": {
         "composer/composer": "^2.4",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "phpstan/phpstan": "^1.9"
+        "phpstan/phpstan": "^1.9",
+        "rector/rector": "*"
     },
     "config": {
         "sort-packages": true,

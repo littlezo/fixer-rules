@@ -18,22 +18,26 @@ use Littler\FixerRules\Rector\LevelSetList;
 use Littler\FixerRules\Rector\SetList;
 use Rector\Config\RectorConfig;
 use Rector\Core\ValueObject\PhpVersion;
+use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
         __DIR__ . '/src',
     ]);
-
-    // register a single rule
-    // $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
-    // $rectorConfig->phpVersion(PhpVersion::PHP_82);
-    // define sets of rules
+    $rectorConfig->skip([StringClassNameToClassConstantRector::class => [__DIR__ . '/config']]);
     $rectorConfig->importNames();
-    // $rectorConfig->rule(NoUnusedImportsFixer::class);
-    // $rectorConfig->sets([
-    //     LevelSetList::UP_TO_PHP_81,
-    // ]);
-    $rectorConfig->sets([SetList::PHP_82, LevelSetList::UP_TO_PHP_81]);
-    // parameter must be defined after import, to override imported param version
+    $rectorConfig->sets([
+        LevelSetList::UP_TO_PHP_81,
+        // SetList::CODE_QUALITY,
+        // SetList::CODING_STYLE,
+        // SetList::DEAD_CODE,
+        // SetList::GMAGICK_TO_IMAGICK,
+        // SetList::NAMING,
+        // SetList::PSR_4,
+        // SetList::TYPE_DECLARATION,
+        // SetList::PRIVATIZATION,
+        // SetList::EARLY_RETURN,
+        SetList::PHP_82,
+    ]);
     $rectorConfig->phpVersion(PhpVersion::PHP_82);
 };

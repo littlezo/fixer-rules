@@ -40,5 +40,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(NewInInitializerRector::class);
     $rectorConfig->rule(IntersectionTypesRector::class);
     $rectorConfig->rule(NullToStrictStringFuncCallArgRector::class);
-    $rectorConfig->rule(FirstClassCallableRector::class);
+    // $rectorConfig->rule(FirstClassCallableRector::class);
 };

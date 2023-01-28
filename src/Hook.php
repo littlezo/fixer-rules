@@ -89,8 +89,8 @@ class Hook implements PluginInterface
         $config = new JsonConfigSource(new JsonFile(Factory::getComposerFile()));
         $config->addProperty('scripts.post-autoload-dump', [
             'rm -rf runtime/container',
-            \Littler\FixerRules\Hook::class . '::copy',
-            \Littler\FixerRules\Hook::class . '::publishConfig',
+            self::class . '::copy',
+            self::class . '::publishConfig',
             'php-cs-fixer fix $1',
             'phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon',
         ]);

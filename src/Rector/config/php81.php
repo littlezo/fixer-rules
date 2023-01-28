@@ -16,10 +16,10 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Rector\Php81\Rector\Array_\FirstClassCallableRector;
-use Rector\Php81\Rector\ClassConst\FinalizePublicClassConstantRector;
-use Rector\Php81\Rector\ClassMethod\NewInInitializerRector;
 use Rector\Php81\Rector\Class_\MyCLabsClassToEnumRector;
 use Rector\Php81\Rector\Class_\SpatieEnumClassToEnumRector;
+use Rector\Php81\Rector\ClassConst\FinalizePublicClassConstantRector;
+use Rector\Php81\Rector\ClassMethod\NewInInitializerRector;
 use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
 use Rector\Php81\Rector\FuncCall\Php81ResourceReturnToObjectRector;
 use Rector\Php81\Rector\FunctionLike\IntersectionTypesRector;

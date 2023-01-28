@@ -63,20 +63,23 @@ class Hook implements PluginInterface
         if ($from == $to) {
             return;
         }
+
         if (! copy($from, $to)) {
-            $io->write("<error>copy {$to} failed....</error>");
+            $io->write(sprintf('<error>copy %s failed....</error>', $to));
         } else {
-            $io->write("<info>copy {$to} successult....</info>");
+            $io->write(sprintf('<info>copy %s successult....</info>', $to));
         }
+
         $phpstan_from = dirname(__DIR__, 1) . '/phpstan.neon';
         $phpstan_to = getcwd() . '/phpstan.neon';
         if (file_exists($phpstan_to)) {
             return;
         }
+
         if (! copy($phpstan_from, $phpstan_to)) {
-            $io->write("<error>copy {$phpstan_to} failed....</error>");
+            $io->write(sprintf('<error>copy %s failed....</error>', $phpstan_to));
         } else {
-            $io->write("<info>copy {$phpstan_to} successult....</info>");
+            $io->write(sprintf('<info>copy %s successult....</info>', $phpstan_to));
         }
     }
 
@@ -86,8 +89,8 @@ class Hook implements PluginInterface
         $config = new JsonConfigSource(new JsonFile(Factory::getComposerFile()));
         $config->addProperty('scripts.post-autoload-dump', [
             'rm -rf runtime/container',
-            'Littler\\FixerRules\\Hook::copy',
-            'Littler\\FixerRules\\Hook::publishConfig',
+            \Littler\FixerRules\Hook::class . '::copy',
+            \Littler\FixerRules\Hook::class . '::publishConfig',
             'php-cs-fixer fix $1',
             'phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon',
         ]);

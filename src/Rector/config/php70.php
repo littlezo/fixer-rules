@@ -51,7 +51,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(TernaryToSpaceshipRector::class);
     $rectorConfig->rule(WrapVariableVariableNameInCurlyBracesRector::class);
     $rectorConfig->rule(IfToSpaceshipRector::class);
-    $rectorConfig->rule(StaticCallOnNonStaticToInstanceCallRector::class);
+    // $rectorConfig->rule(StaticCallOnNonStaticToInstanceCallRector::class);
     $rectorConfig->rule(ThisCallOnStaticMethodToStaticCallRector::class);
     $rectorConfig->rule(BreakNotInLoopOrSwitchToReturnRector::class);
     $rectorConfig->rule(RenameMktimeWithoutArgsToTimeRector::class);

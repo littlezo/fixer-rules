@@ -22,7 +22,7 @@ use Rector\Php70\Rector\ClassMethod\Php4ConstructorRector;
 use Rector\Php70\Rector\FuncCall\CallUserMethodRector;
 use Rector\Php70\Rector\FuncCall\EregToPregMatchRector;
 use Rector\Php70\Rector\FuncCall\MultiDirnameRector;
-use Rector\Php70\Rector\FuncCall\NonVariableToVariableOnFunctionCallRector;
+// use Rector\Php70\Rector\FuncCall\NonVariableToVariableOnFunctionCallRector;
 use Rector\Php70\Rector\FuncCall\RandomFunctionRector;
 use Rector\Php70\Rector\FuncCall\RenameMktimeWithoutArgsToTimeRector;
 use Rector\Php70\Rector\FunctionLike\ExceptionHandlerTypehintRector;
@@ -55,5 +55,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ThisCallOnStaticMethodToStaticCallRector::class);
     $rectorConfig->rule(BreakNotInLoopOrSwitchToReturnRector::class);
     $rectorConfig->rule(RenameMktimeWithoutArgsToTimeRector::class);
-    $rectorConfig->rule(NonVariableToVariableOnFunctionCallRector::class);
+    // $rectorConfig->rule(NonVariableToVariableOnFunctionCallRector::class);
 };

@@ -45,14 +45,12 @@ class Hook implements PluginInterface
     {
         $this->composer = $composer;
         $this->io = $io;
-        echo 'deactivate';
     }
 
     public function uninstall(Composer $composer, IOInterface $io): void
     {
         $this->composer = $composer;
         $this->io = $io;
-        echo 'uninstall';
     }
 
     public static function copy(): void

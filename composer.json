@@ -28,9 +28,9 @@
         }
     },
     "require-dev": {
-        "composer/composer": "^2.4",
-        "friendsofphp/php-cs-fixer": "^3.0",
-        "phpstan/phpstan": "^1.9",
+        "composer/composer": "~2.4",
+        "friendsofphp/php-cs-fixer": "~3.0",
+        "phpstan/phpstan": "~1.9",
         "rector/rector": "*"
     },
     "config": {
@@ -84,7 +84,7 @@
         "class":"\\Littler\\FixerRules\\Hook"
     },
     "require": {
-        "composer-plugin-api": "^2.3"
+        "composer-plugin-api": "~2.3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

@@ -55,7 +55,7 @@ class Hook implements PluginInterface
 
     public static function copy(): void
     {
-        $io = new ConsoleIO(new ArgvInput, new ConsoleOutput, new HelperSet);
+        $io = new ConsoleIO(new ArgvInput(), new ConsoleOutput(), new HelperSet());
         $from = dirname(__DIR__, 1) . '/.php-cs-fixer.php';
         $to = getcwd() . '/.php-cs-fixer.php';
         if ($from == $to) {
@@ -83,7 +83,7 @@ class Hook implements PluginInterface
 
     public static function publishConfig(): void
     {
-        $io = new ConsoleIO(new ArgvInput, new ConsoleOutput, new HelperSet);
+        $io = new ConsoleIO(new ArgvInput(), new ConsoleOutput(), new HelperSet());
         $config = new JsonConfigSource(new JsonFile(Factory::getComposerFile()));
         $config->addProperty('scripts.post-autoload-dump', [
             'rm -rf runtime/container',

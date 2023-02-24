@@ -48,5 +48,39 @@ use Rector\TypeDeclaration\Rector\Property\TypedPropertyFromStrictSetUpRector;
 use Rector\TypeDeclaration\Rector\Property\VarAnnotationIncorrectNullableRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->rules([AddClosureReturnTypeRector::class, AddArrowFunctionReturnTypeRector::class, ParamTypeByMethodCallTypeRector::class, TypedPropertyFromAssignsRector::class, ReturnAnnotationIncorrectNullableRector::class, VarAnnotationIncorrectNullableRector::class, ParamAnnotationIncorrectNullableRector::class, AddReturnTypeDeclarationBasedOnParentClassMethodRector::class, ReturnTypeFromStrictTypedPropertyRector::class, TypedPropertyFromStrictConstructorRector::class, ParamTypeFromStrictTypedPropertyRector::class, AddVoidReturnTypeWhereNoReturnRector::class, ReturnTypeFromReturnNewRector::class, TypedPropertyFromStrictGetterMethodReturnTypeRector::class, AddMethodCallBasedStrictParamTypeRector::class, ArrayShapeFromConstantArrayReturnRector::class, ReturnTypeFromStrictBoolReturnExprRector::class, ReturnTypeFromStrictNativeCallRector::class, ReturnTypeFromStrictNewArrayRector::class, ReturnTypeFromStrictScalarReturnExprRector::class, TypedPropertyFromStrictSetUpRector::class, ParamTypeByParentCallTypeRector::class, AddParamTypeSplFixedArrayRector::class, AddParamTypeBasedOnPHPUnitDataProviderRector::class, AddParamTypeFromPropertyTypeRector::class, AddReturnTypeDeclarationFromYieldsRector::class, ReturnTypeFromReturnDirectArrayRector::class, ReturnTypeFromStrictConstantReturnRector::class, ReturnTypeFromStrictTypedCallRector::class, ReturnNeverTypeRector::class, EmptyOnNullableObjectToInstanceOfRector::class]);
+    $rectorConfig->rules(
+        [
+            AddClosureReturnTypeRector::class,
+            AddArrowFunctionReturnTypeRector::class,
+            ParamTypeByMethodCallTypeRector::class,
+            TypedPropertyFromAssignsRector::class,
+            ReturnAnnotationIncorrectNullableRector::class,
+            VarAnnotationIncorrectNullableRector::class,
+            ParamAnnotationIncorrectNullableRector::class,
+            AddReturnTypeDeclarationBasedOnParentClassMethodRector::class,
+            ReturnTypeFromStrictTypedPropertyRector::class,
+            TypedPropertyFromStrictConstructorRector::class,
+            ParamTypeFromStrictTypedPropertyRector::class,
+            AddVoidReturnTypeWhereNoReturnRector::class,
+            ReturnTypeFromReturnNewRector::class,
+            TypedPropertyFromStrictGetterMethodReturnTypeRector::class,
+            AddMethodCallBasedStrictParamTypeRector::class,
+            ArrayShapeFromConstantArrayReturnRector::class,
+            ReturnTypeFromStrictBoolReturnExprRector::class,
+            ReturnTypeFromStrictNativeCallRector::class,
+            ReturnTypeFromStrictNewArrayRector::class,
+            ReturnTypeFromStrictScalarReturnExprRector::class,
+            TypedPropertyFromStrictSetUpRector::class,
+            ParamTypeByParentCallTypeRector::class,
+            AddParamTypeSplFixedArrayRector::class,
+            AddParamTypeBasedOnPHPUnitDataProviderRector::class,
+            AddParamTypeFromPropertyTypeRector::class,
+            AddReturnTypeDeclarationFromYieldsRector::class,
+            ReturnTypeFromReturnDirectArrayRector::class,
+            ReturnTypeFromStrictConstantReturnRector::class,
+            ReturnTypeFromStrictTypedCallRector::class,
+            ReturnNeverTypeRector::class,
+            EmptyOnNullableObjectToInstanceOfRector::class,
+        ]
+    );
 };

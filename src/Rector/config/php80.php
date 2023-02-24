@@ -61,7 +61,14 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(StrContainsRector::class);
     $rectorConfig->rule(StrStartsWithRector::class);
     $rectorConfig->rule(StrEndsWithRector::class);
-    $rectorConfig->ruleWithConfiguration(StaticCallToFuncCallRector::class, [new StaticCallToFuncCall(Strings::class, 'startsWith', 'str_starts_with'), new StaticCallToFuncCall(Strings::class, 'endsWith', 'str_ends_with'), new StaticCallToFuncCall(Strings::class, 'contains', 'str_contains')]);
+    $rectorConfig->ruleWithConfiguration(
+        StaticCallToFuncCallRector::class,
+        [new StaticCallToFuncCall(Strings::class, 'startsWith', 'str_starts_with'), new StaticCallToFuncCall(
+            Strings::class,
+            'endsWith',
+            'str_ends_with'
+        ), new StaticCallToFuncCall(Strings::class, 'contains', 'str_contains')]
+    );
     $rectorConfig->rule(StringableForToStringRector::class);
     $rectorConfig->rule(ClassOnObjectRector::class);
     $rectorConfig->rule(GetDebugTypeRector::class);
@@ -70,14 +77,85 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ClassPropertyAssignToConstructorPromotionRector::class);
     $rectorConfig->rule(ChangeSwitchToMatchRector::class);
     // nette\utils and Strings::replace()
-    $rectorConfig->ruleWithConfiguration(ArgumentAdderRector::class, [new ArgumentAdder(Strings::class, 'replace', 2, 'replacement', '')]);
+    $rectorConfig->ruleWithConfiguration(
+        ArgumentAdderRector::class,
+        [new ArgumentAdder(Strings::class, 'replace', 2, 'replacement', '')]
+    );
     $rectorConfig->rule(RemoveParentCallWithoutParentRector::class);
     $rectorConfig->rule(SetStateToStaticRector::class);
     $rectorConfig->rule(FinalPrivateToPrivateVisibilityRector::class);
     // @see https://php.watch/versions/8.0/pgsql-aliases-deprecated
-    $rectorConfig->ruleWithConfiguration(RenameFunctionRector::class, ['pg_clientencoding' => 'pg_client_encoding', 'pg_cmdtuples' => 'pg_affected_rows', 'pg_errormessage' => 'pg_last_error', 'pg_fieldisnull' => 'pg_field_is_null', 'pg_fieldname' => 'pg_field_name', 'pg_fieldnum' => 'pg_field_num', 'pg_fieldprtlen' => 'pg_field_prtlen', 'pg_fieldsize' => 'pg_field_size', 'pg_fieldtype' => 'pg_field_type', 'pg_freeresult' => 'pg_free_result', 'pg_getlastoid' => 'pg_last_oid', 'pg_loclose' => 'pg_lo_close', 'pg_locreate' => 'pg_lo_create', 'pg_loexport' => 'pg_lo_export', 'pg_loimport' => 'pg_lo_import', 'pg_loopen' => 'pg_lo_open', 'pg_loread' => 'pg_lo_read', 'pg_loreadall' => 'pg_lo_read_all', 'pg_lounlink' => 'pg_lo_unlink', 'pg_lowrite' => 'pg_lo_write', 'pg_numfields' => 'pg_num_fields', 'pg_numrows' => 'pg_num_rows', 'pg_result' => 'pg_fetch_result', 'pg_setclientencoding' => 'pg_set_client_encoding']);
+    $rectorConfig->ruleWithConfiguration(RenameFunctionRector::class, [
+        'pg_clientencoding' => 'pg_client_encoding',
+        'pg_cmdtuples' => 'pg_affected_rows',
+        'pg_errormessage' => 'pg_last_error',
+        'pg_fieldisnull' => 'pg_field_is_null',
+        'pg_fieldname' => 'pg_field_name',
+        'pg_fieldnum' => 'pg_field_num',
+        'pg_fieldprtlen' => 'pg_field_prtlen',
+        'pg_fieldsize' => 'pg_field_size',
+        'pg_fieldtype' => 'pg_field_type',
+        'pg_freeresult' => 'pg_free_result',
+        'pg_getlastoid' => 'pg_last_oid',
+        'pg_loclose' => 'pg_lo_close',
+        'pg_locreate' => 'pg_lo_create',
+        'pg_loexport' => 'pg_lo_export',
+        'pg_loimport' => 'pg_lo_import',
+        'pg_loopen' => 'pg_lo_open',
+        'pg_loread' => 'pg_lo_read',
+        'pg_loreadall' => 'pg_lo_read_all',
+        'pg_lounlink' => 'pg_lo_unlink',
+        'pg_lowrite' => 'pg_lo_write',
+        'pg_numfields' => 'pg_num_fields',
+        'pg_numrows' => 'pg_num_rows',
+        'pg_result' => 'pg_fetch_result',
+        'pg_setclientencoding' => 'pg_set_client_encoding',
+    ]);
     $rectorConfig->rule(OptionalParametersAfterRequiredRector::class);
-    $rectorConfig->ruleWithConfiguration(FunctionArgumentDefaultValueReplacerRector::class, [new ReplaceFuncCallArgumentDefaultValue('version_compare', 2, 'gte', 'ge'), new ReplaceFuncCallArgumentDefaultValue('version_compare', 2, 'lte', 'le'), new ReplaceFuncCallArgumentDefaultValue('version_compare', 2, '', '!='), new ReplaceFuncCallArgumentDefaultValue('version_compare', 2, '!', '!='), new ReplaceFuncCallArgumentDefaultValue('version_compare', 2, 'g', 'gt'), new ReplaceFuncCallArgumentDefaultValue('version_compare', 2, 'l', 'lt'), new ReplaceFuncCallArgumentDefaultValue('version_compare', 2, 'gte', 'ge'), new ReplaceFuncCallArgumentDefaultValue('version_compare', 2, 'lte', 'le'), new ReplaceFuncCallArgumentDefaultValue('version_compare', 2, 'n', 'ne')]);
+    $rectorConfig->ruleWithConfiguration(
+        FunctionArgumentDefaultValueReplacerRector::class,
+        [new ReplaceFuncCallArgumentDefaultValue(
+            'version_compare',
+            2,
+            'gte',
+            'ge'
+        ), new ReplaceFuncCallArgumentDefaultValue(
+            'version_compare',
+            2,
+            'lte',
+            'le'
+        ), new ReplaceFuncCallArgumentDefaultValue(
+            'version_compare',
+            2,
+            '',
+            '!='
+        ), new ReplaceFuncCallArgumentDefaultValue(
+            'version_compare',
+            2,
+            '!',
+            '!='
+        ), new ReplaceFuncCallArgumentDefaultValue(
+            'version_compare',
+            2,
+            'g',
+            'gt'
+        ), new ReplaceFuncCallArgumentDefaultValue(
+            'version_compare',
+            2,
+            'l',
+            'lt'
+        ), new ReplaceFuncCallArgumentDefaultValue(
+            'version_compare',
+            2,
+            'gte',
+            'ge'
+        ), new ReplaceFuncCallArgumentDefaultValue(
+            'version_compare',
+            2,
+            'lte',
+            'le'
+        ), new ReplaceFuncCallArgumentDefaultValue('version_compare', 2, 'n', 'ne')]
+    );
     $rectorConfig->rule(Php8ResourceReturnToObjectRector::class);
     $rectorConfig->rule(AddParamBasedOnParentClassMethodRector::class);
     $rectorConfig->rule(MixedTypeRector::class);

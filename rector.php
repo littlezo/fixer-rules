@@ -21,10 +21,10 @@ use Rector\Core\ValueObject\PhpVersion;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->paths([
-        __DIR__ . '/src',
+    $rectorConfig->paths([__DIR__ . '/src']);
+    $rectorConfig->skip([
+        StringClassNameToClassConstantRector::class => [__DIR__ . '/config'],
     ]);
-    $rectorConfig->skip([StringClassNameToClassConstantRector::class => [__DIR__ . '/config']]);
     $rectorConfig->importNames();
     $rectorConfig->sets([
         LevelSetList::UP_TO_PHP_81,
